@@ -30,6 +30,8 @@
     "chart.js": "^2.8.0",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-googlemaps": "2.6.2",
+    "fs": "0.0.1-security",
+    "ionic": "^3.9.1",
     "ionic-angular": "3.9.5",
     "ionicons": "3.0.0",
     "papaparse": "^4.6.3",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.2",
+    "@types/node": "^12.0.2",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
