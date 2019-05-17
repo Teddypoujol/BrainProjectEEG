@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import * as papa from 'papaparse';
 import { Http } from '@angular/http';
 import { Chart } from 'chart.js';
-import * as fs from "fs";
+
 
 @Component({
   selector: 'page-delta',
@@ -11,12 +11,13 @@ import * as fs from "fs";
 })
 export class DeltaPage {
   @ViewChild('lineCanvas') lineCanvas;
-
+  Delta = [];
 
   lineChart: any;
 
   csvData: any[] = [];
   headerRow: any[] = [];
+  DeltaTP9: any;
 
   constructor(public navCtrl: NavController, private http: Http) {
     this.readCsvData();
@@ -34,17 +35,28 @@ export class DeltaPage {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
     this.csvToJSON(csvData, function (resp) {
-      this.doThings(resp, function (resp2) {
-        console.log(resp2);
-      })
+      let tp9 = [];
+      resp.map((objet) => {
+        const {Delta_TP9, Delta_AF7} = objet;
+        tp9.push({Delta_TP9, Delta_AF7});
+      });
+      // --------- End of Extraction ---------
+      /*this.moyenne(tp9, function(resp){
+        this.frequence(resp, function(resp2){
+          this.Delta = resp2;
+        })
+      })*/
+      return tp9;
     })
+    /*this.moyenne(tp9, function(resp){
+      console.log(resp);
+    })*/
     this.headerRow = parsedData[0];
-
-
     parsedData.splice(0, 1);
     this.csvData = parsedData;
-    //console.log(csvData);
   }
+
+
 
   private csvToJSON(csv, callback) {
     var lines = csv.split("\n");
@@ -58,33 +70,37 @@ export class DeltaPage {
       }
       result.push(obj);
     }
-    if (callback && (typeof callback === 'function')) {
-      return callback(result);
-    }
+
     return result;
   }
 
-  private test(){
-    fs.readFile(__dirname+ '/test1.csv', function (err, data) {//lire le fichier
-      if (err) {
-        throw err;
-      }
-      let str = data.toString();
-      // console.log(str);
-      this.csvToJSON(str, (res) => {//convertir le fichier en csv
-        // --------- Extract value from your array of object ---------
-        let tp9 = [];
-        res.map((objet) => {
-          const {TimeStamp,Delta_TP9 } = objet;
-          tp9.push({ TimeStamp, Delta_TP9});
-        });
-        // --------- End of Extraction ---------
-        console.log(tp9);
-      });
-    });
+  private moyenne(Delta, callback) {
+    var moyenneDelta = [];
+    
+    for (var i in Delta) {
+
+      moyenneDelta[i] = (Delta[i].Delta_TP9 + Delta[i].Delta_AF7)/2
+      
+    }
+    if (callback && (typeof callback === 'function')) {
+      return callback(moyenneDelta);
+    }
+    return moyenneDelta;
   }
 
+  private frequence(moyenneDelta, callback) {
+    var frequenceDelta = [];
+    
+    for (var i in moyenneDelta) {
 
+      frequenceDelta[i] = ((moyenneDelta[i] - (-1))/(1-(-1)))*(4-0.5)+0.5
+      
+    }
+    if (callback && (typeof callback === 'function')) {
+      return callback(frequenceDelta);
+    }
+    return frequenceDelta;
+  }
    
 private handleError(err) {
   console.log('something went wrong: ', err);
@@ -123,7 +139,7 @@ ionViewDidLoad() {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: this.Delta,
           spanGaps: false,
         }
       ]
