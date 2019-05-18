@@ -1,15 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
 import * as papa from 'papaparse';
 import { Http } from '@angular/http';
 import { Chart } from 'chart.js';
 
 
+
+
 @Component({
   selector: 'page-delta',
   templateUrl: 'delta.html'
 })
-export class DeltaPage {
+export class DeltaPage  {
+ 
   @ViewChild('lineCanvas') lineCanvas;
   Delta = [];
 
@@ -23,42 +26,11 @@ export class DeltaPage {
     this.readCsvData();
   }
 
-  private readCsvData() {
-    this.http.get('assets/test1.csv')
-      .subscribe(
-        data => this.extractData(data),
-        err => this.handleError(err)
-      );
-  }
-
-  private extractData(res) {
-    let csvData = res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
-    this.csvToJSON(csvData, function (resp) {
-      let tp9 = [];
-      resp.map((objet) => {
-        const {Delta_TP9, Delta_AF7} = objet;
-        tp9.push({Delta_TP9, Delta_AF7});
-      });
-      // --------- End of Extraction ---------
-      /*this.moyenne(tp9, function(resp){
-        this.frequence(resp, function(resp2){
-          this.Delta = resp2;
-        })
-      })*/
-      return tp9;
-    })
-    /*this.moyenne(tp9, function(resp){
-      console.log(resp);
-    })*/
-    this.headerRow = parsedData[0];
-    parsedData.splice(0, 1);
-    this.csvData = parsedData;
-  }
+  
 
 
 
-  private csvToJSON(csv, callback) {
+  public csvToJSON(csv, callback) {
     var lines = csv.split("\n");
     var result = [];
     var headers = lines[0].split(",");
@@ -70,11 +42,11 @@ export class DeltaPage {
       }
       result.push(obj);
     }
-
+    console.log(result);
     return result;
   }
 
-  private moyenne(Delta, callback) {
+  public moyenne(Delta, callback) {
     var moyenneDelta = [];
     
     for (var i in Delta) {
@@ -85,10 +57,12 @@ export class DeltaPage {
     if (callback && (typeof callback === 'function')) {
       return callback(moyenneDelta);
     }
+    console.log(moyenneDelta);
     return moyenneDelta;
   }
 
-  private frequence(moyenneDelta, callback) {
+  
+  public frequence(moyenneDelta, callback) {
     var frequenceDelta = [];
     
     for (var i in moyenneDelta) {
@@ -99,9 +73,49 @@ export class DeltaPage {
     if (callback && (typeof callback === 'function')) {
       return callback(frequenceDelta);
     }
+    console.log(frequenceDelta);
     return frequenceDelta;
   }
    
+  public readCsvData() {
+    this.http.get('assets/test1.csv')
+      .subscribe(
+        data => this.extractData(data),
+        err => this.handleError(err)
+      );
+  }
+
+  public extractData(res) {
+    let csvData = res['_body'] || '';
+    let parsedData = papa.parse(csvData).data;
+    this.csvToJSON(csvData, function (resp) {
+      let tp9 = [];
+      resp.map((objet) => {
+        const {Delta_TP9, Delta_AF7} = objet;
+        tp9.push({Delta_TP9, Delta_AF7});
+      });
+      // --------- End of Extraction ---------
+      this.moyenne(tp9, function(resp){
+        this.frequence(resp, function(resp2){
+          this.Delta = resp2;
+          console.log(resp2);
+          console.log(this.Delta);
+        })
+      })
+      console.log(tp9);
+      return tp9;
+      
+    })
+    /*
+    this.moyenne(tp9, function(resp){
+      console.log(resp);
+    })
+    */
+    this.headerRow = parsedData[0];
+    parsedData.splice(0, 1);
+    this.csvData = parsedData;
+  }
+
 private handleError(err) {
   console.log('something went wrong: ', err);
 }
