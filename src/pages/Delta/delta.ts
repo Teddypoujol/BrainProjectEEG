@@ -17,7 +17,7 @@ export class DeltaPage  {
   Delta = [];
 
   lineChart: any;
-
+  moyenneData: any[] = [];
   csvData: any[] = [];
   headerRow: any[] = [];
   DeltaTP9: any;
@@ -47,11 +47,11 @@ export class DeltaPage  {
   }
 
   public moyenne(Delta, callback) {
-    var moyenneDelta = [];
+    let moyenneDelta = [];
     
     for (var i in Delta) {
 
-      moyenneDelta[i] = (Delta[i].Delta_TP9 + Delta[i].Delta_AF7)/2
+      moyenneDelta[i].push((parseInt(Delta[i].Delta_TP9,10) + parseInt(Delta[i].Delta_AF7)/2,10));
       
     }
     if (callback && (typeof callback === 'function')) {
@@ -63,11 +63,11 @@ export class DeltaPage  {
 
   
   public frequence(moyenneDelta, callback) {
-    var frequenceDelta = [];
+    let frequenceDelta = [];
     
     for (var i in moyenneDelta) {
 
-      frequenceDelta[i] = ((moyenneDelta[i] - (-1))/(1-(-1)))*(4-0.5)+0.5
+      frequenceDelta[i].push(((parseInt(moyenneDelta[i],10) - (-1))/(1-(-1)))*(4-0.5)+0.5)
       
     }
     if (callback && (typeof callback === 'function')) {
