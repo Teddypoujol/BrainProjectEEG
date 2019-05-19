@@ -9,7 +9,7 @@
 </ion-header>
  
 <ion-content padding>
-  <ion-scroll scrollX="true" scrollY="true" class="data-scroll">
+ <!-- <ion-scroll scrollX="true" scrollY="true" class="data-scroll">
     <table class="data-table">
       <tr>
         <td *ngFor="let header of headerRow" text-center><b>{{ header }}</b></td>
@@ -20,14 +20,56 @@
         </td>
       </tr>
     </table>
-  </ion-scroll>
+  </ion-scroll>-->
+  <ion-card>
+    <ion-card-header>
+      Alpha
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #freqAlpha></canvas>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-card-header>
-      Line Chart
+      Beta
     </ion-card-header>
     <ion-card-content>
-      <canvas #lineCanvas></canvas>
+      <canvas #freqBeta></canvas>
     </ion-card-content>
   </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+      Delta
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #freqDelta></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  
+<ion-card>
+  <ion-card-header>
+    Theta
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #freqTheta></canvas>
+  </ion-card-content>
+</ion-card>
+
+    <ion-card>
+   <ion-card-header>
+    Gamma
+  </ion-card-header>
+  <ion-card-content>
+    <canvas #freqGamma></canvas>
+  </ion-card-content>
+</ion-card>
+
+
+
+ 
+
+
 </ion-content>
