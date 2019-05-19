@@ -3,9 +3,12 @@ import { NavController } from 'ionic-angular';
 import * as papa from 'papaparse';
 import { Http } from '@angular/http';
 import { Chart } from 'chart.js';
+import { timestamp } from 'rxjs/operators';
+import { D } from '@angular/core/src/render3';
 
-
-
+/*
+  
+*/
 
 @Component({
   selector: 'page-delta',
@@ -15,7 +18,8 @@ export class DeltaPage  {
  
   @ViewChild('lineCanvas') lineCanvas;
   Delta = [];
-
+  moyenneDelta: any[] = [];
+  frequenceDelta: any[] = [];
   lineChart: any;
   moyenneData: any[] = [];
   csvData: any[] = [];
@@ -26,11 +30,7 @@ export class DeltaPage  {
     this.readCsvData();
   }
 
-  
-
-
-
-  public csvToJSON(csv, callback) {
+  public csvToJSON(csv,moyenneDelta,frequenceDelta, callback) {
     var lines = csv.split("\n");
     var result = [];
     var headers = lines[0].split(",");
@@ -42,6 +42,21 @@ export class DeltaPage  {
       }
       result.push(obj);
     }
+
+    
+    
+
+    for (let h=0;h < result.length;h++) {
+      moyenneDelta[h] = ((parseFloat(result[h].Delta_TP9) + parseFloat(result[h].Delta_AF7))/2);
+    }
+    
+    for ( var k =0; k< moyenneDelta.length;k++){
+      frequenceDelta[k] = ((parseFloat(moyenneDelta[k]) - (-1))/(1-(-1)))*(4-0.5)+0.5;
+    }
+
+    console.log(frequenceDelta);
+    console.log(moyenneDelta);
+
     console.log(result);
     return result;
   }
@@ -67,7 +82,7 @@ export class DeltaPage  {
     
     for (var i in moyenneDelta) {
 
-      frequenceDelta[i].push(((parseInt(moyenneDelta[i],10) - (-1))/(1-(-1)))*(4-0.5)+0.5)
+      frequenceDelta[i] = (((parseFloat(moyenneDelta[i]) - (-1))/(1-(-1)))*(4-0.5)+0.5)
       
     }
     if (callback && (typeof callback === 'function')) {
@@ -88,11 +103,12 @@ export class DeltaPage  {
   public extractData(res) {
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
-    this.csvToJSON(csvData, function (resp) {
+    this.csvToJSON(csvData,this.moyenneDelta,this.frequenceDelta, function (resp) {
       let tp9 = [];
       resp.map((objet) => {
         const {Delta_TP9, Delta_AF7} = objet;
         tp9.push({Delta_TP9, Delta_AF7});
+
       });
       // --------- End of Extraction ---------
       this.moyenne(tp9, function(resp){
@@ -106,11 +122,7 @@ export class DeltaPage  {
       return tp9;
       
     })
-    /*
-    this.moyenne(tp9, function(resp){
-      console.log(resp);
-    })
-    */
+   
     this.headerRow = parsedData[0];
     parsedData.splice(0, 1);
     this.csvData = parsedData;
@@ -132,10 +144,10 @@ ionViewDidLoad() {
 
     type: 'line',
     data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ["januarydemerde"],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Fréquence Delta",
           fill: false,
           lineTension: 0.1,
           backgroundColor: "rgba(75,192,192,0.4)",
