@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 import { GammaPage } from '../pages/gamma/gamma';
 import { DeltaPage } from '../pages/Delta/delta';
+import { GlobalPage } from '../pages/Global/global';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -18,8 +19,9 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
-    GammaPage,
     DeltaPage,
+    GammaPage,
+    GlobalPage,
     HomePage,
     TabsPage
   ],
@@ -31,8 +33,9 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    GammaPage,
     DeltaPage,
+    GammaPage,
+    GlobalPage,
     HomePage,
     TabsPage
   ],
