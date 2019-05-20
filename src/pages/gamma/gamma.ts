@@ -65,7 +65,7 @@ export class GammaPage {
      
       //DELTA
       for (let h=0;h < result.length;h++) {
-        moyenneDelta[h] = ((parseFloat(result[h].Delta_TP9) + parseFloat(result[h].Delta_AF7))/2);
+        moyenneDelta[h] = ((parseFloat(result[h].Delta_TP10) + parseFloat(result[h].Delta_AF8))/2);
       }
       
       for ( var k =0; k< moyenneDelta.length;k++){
@@ -74,7 +74,7 @@ export class GammaPage {
   
       //GAMMA
       for (let l=0;l < result.length;l++) {
-        moyenneGamma[l] = ((parseFloat(result[l].Gamma_TP9) + parseFloat(result[l].Gamma_AF7))/2);
+        moyenneGamma[l] = ((parseFloat(result[l].Gamma_TP10) + parseFloat(result[l].Gamma_AF8))/2);
       }
       
       for ( var m =0; m< moyenneGamma.length;m++){
@@ -83,7 +83,7 @@ export class GammaPage {
   
       //BETA
       for (let n=0;n < result.length;n++) {
-        moyenneBeta[n] = ((parseFloat(result[n].Beta_TP9) + parseFloat(result[n].Beta_AF7))/2);
+        moyenneBeta[n] = ((parseFloat(result[n].Beta_TP10) + parseFloat(result[n].Beta_AF8))/2);
       }
       
       for ( var o =0; o< moyenneBeta.length;o++){
@@ -92,7 +92,7 @@ export class GammaPage {
   
       //ALPHA
       for (let p=0;p < result.length;p++) {
-        moyenneAlpha[p] = ((parseFloat(result[p].Alpha_TP9) + parseFloat(result[p].Alpha_AF7))/2);
+        moyenneAlpha[p] = ((parseFloat(result[p].Alpha_TP10) + parseFloat(result[p].Alpha_AF8))/2);
       }
       
       for ( var q =0; q< moyenneAlpha.length;q++){
@@ -101,7 +101,7 @@ export class GammaPage {
   
       //THETA
       for (let r=0;r < result.length;r++) {
-        moyenneTheta[r] = ((parseFloat(result[r].Theta_TP9) + parseFloat(result[r].Theta_AF7))/2);
+        moyenneTheta[r] = ((parseFloat(result[r].Theta_TP10) + parseFloat(result[r].Theta_AF8))/2);
       }
       
       for ( var s =0; s< moyenneTheta.length;s++){
@@ -143,17 +143,17 @@ export class GammaPage {
       this.csvToJSON(csvData,this.moyenneDelta,this.frequenceDelta, this.timeStamp, 
         this.moyenneGamma,this.frequenceGamma, this.moyenneAlpha,this.frequenceAlpha,
         this.moyenneBeta,this.frequenceBeta,this.moyenneTheta,this.frequenceTheta,function (resp) {
-        let tp9 = [];
+        let TP10 = [];
         resp.map((objet) => {
-          const {Delta_TP9, Delta_AF7} = objet;
-          tp9.push({Delta_TP9, Delta_AF7});
+          const {Delta_TP10, Delta_AF8} = objet;
+          TP10.push({Delta_TP10, Delta_AF8});
   
         });
         // --------- End of Extraction ---------
         
-        Delta.push(tp9);
-        console.log(tp9);
-        return tp9;
+        Delta.push(TP10);
+        console.log(TP10);
+        return TP10;
         
       })
      
