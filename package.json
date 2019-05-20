@@ -5,6 +5,7 @@
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
+    "start": "ionic-app-scripts serve --nolivereload",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
@@ -19,13 +20,14 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
-    "@ionic-native/core": "~4.20.0",
+    "@ionic-native/core": "5.1.0",
     "@ionic-native/geolocation": "^4.20.0",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/splash-screen": "~4.20.0",
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic/app-scripts": "3.2.2",
     "@ionic/cli-plugin-cordova": "^1.6.2",
+    "cordova-plugin-ionic": "^5.0.0",
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "2.2.0",
     "@types/node": "^12.0.2",
@@ -38,7 +40,7 @@
     "ionic-angular": "3.9.5",
     "ionicons": "3.0.0",
     "papaparse": "^4.6.3",
-    "rxjs": "5.5.11",
+    "rxjs": "^6.3.0",
     "sw-toolbox": "3.6.0",
     "typescript": "~2.6.2",
     "zone.js": "0.8.29"
