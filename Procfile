@@ -1,1 +1,1 @@
-web: ionic serve -- --port $PORT -- --nobrowser -- --nolivereload -- --noopen -- --no-interactive
+web: ionic serve -- --port $PORT -- --nobrowser -- --nolivereload --  --noopen -- --no-interactive
