@@ -17,6 +17,7 @@ export class DeltaPage  {
   @ViewChild('freqBeta') freqBeta;
   @ViewChild('freqGamma') freqGamma;
   @ViewChild('freqTheta') freqTheta;
+  @ViewChild('testScatter') testScatter;
 
   Delta = [];
   moyenneDelta: any[] = [];
@@ -43,13 +44,15 @@ export class DeltaPage  {
   csvData: any[] = [];
   headerRow: any[] = [];
 
-
+  scatterChart: any[] = [];
+  gauche = [];
+  droite = [];
 
 
   constructor(public navCtrl: NavController, private http: Http) {
     this.readCsvData();
-    this.getTest();
-    this.getTest2();
+    this.getTest3();
+    this.getTest4();
   }
 
   public csvToJSON(csv,moyenneDelta,frequenceDelta, timeStamp, moyenneGamma,frequenceGamma, 
@@ -133,21 +136,28 @@ export class DeltaPage  {
   }
 
 
-public getTest(){
- this.http.get('http://localhost:8000/mean', {})
- .subscribe(data => {
-   console.log(data.json());
 
- });
-}
-
-
-public getTest2(){
-  this.http.get('http://localhost:8000/mean2', {})
+ public getTest3(){
+  this.http.get('http://localhost:8000/clusterG', {})
   .subscribe(data => {
+    //ddddd
     console.log(data.json());
+    this.gauche.push(data.json());
+    console.log(this.gauche);
   });
  }
+
+ public getTest4(){
+  this.http.get('http://localhost:8000/clusterD', {})
+  .subscribe(data => {
+    //ddddd
+    console.log(data.json());
+    this.droite.push(data);
+ 
+  });
+ }
+
+
 
 
    
@@ -195,6 +205,23 @@ private handleError(err) {
 ionViewDidLoad() {
 
 
+    this.scatterChart = new Chart(this.testScatter.nativeElement, {
+      type: 'scatter',
+      data: {
+          datasets: [{
+              label: 'Scatter Dataset',
+              data: this.gauche
+          }]
+      },
+      options: {
+          scales: {
+              xAxes: [{
+                  type: 'linear',
+                  position: 'bottom'
+              }]
+          }
+      }
+  });
 
   this.delta = new Chart(this.freqDelta.nativeElement, {
 

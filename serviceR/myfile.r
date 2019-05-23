@@ -6,6 +6,71 @@ cors <- function(res) {
   plumber::forward()
 }
 
+#* @get /clusterG
+clusterG <- function(){
+    # Lecture du fichier
+  AnalyseCerveau <- read.csv(file="../data/country.csv",header=FALSE,dec=",") 
+
+  AnalyseCerveauG <- AnalyseCerveau[,1:80]
+ 
+  
+  pcaG <- prcomp(AnalyseCerveauG, center = TRUE, scale = FALSE)
+  
+  
+ 
+  pcaG <- pcaG$x[,1:2]
+
+  pcaG <- unlist(pcaG)
+
+
+  
+  DG <- dist(pcaG, method="euclidean")
+ 
+
+  AscHierarchiqueG <- hclust(DG, method="complete")
+  
+
+  clusterG = cutree(AscHierarchiqueG,3)
+
+  #AFFICHER CA !!!!
+
+  afficherG <- cbind(pcaG, clusterG)
+  
+  colnames(pcaG) <- c("x","y")
+  pcaG
+
+}
+
+#* @get /clusterD
+clusterD <- function(){
+    # Lecture du fichier
+  AnalyseCerveau <- read.csv(file="../data/country.csv",header=FALSE,dec=",") 
+
+  AnalyseCerveauD <- AnalyseCerveau[,81:160]
+
+  pcaD <- prcomp(AnalyseCerveauD, center = TRUE, scale = FALSE)
+  
+  pcaD <- pcaD$x[,1:2]
+
+  pcaD <- unlist(pcaD)
+
+  DD <- dist(pcaD, method="euclidean")
+
+  
+  AscHierarchiqueD <- hclust(DD, method="complete")
+
+ 
+  clusterD = cutree(AscHierarchiqueD,3)
+  #AFFICHER CA !!!!
+  afficherD <- cbind(pcaD, clusterD)
+  
+  
+  pcaD
+ 
+
+}
+
+
 #* @get /mean
 normalMean <- function(samples=10){
   data <- rnorm(samples)
