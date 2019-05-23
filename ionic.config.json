@@ -4,5 +4,11 @@
     "cordova": {}
   },
   "type": "ionic-angular",
-  "id": "177a3af6"
+  "id": "177a3af6",
+  "proxies": [
+    {
+      "path": "/mean",
+      "proxyUrl": "http://localhost:8000/mean"
+    }
+  ]
 }

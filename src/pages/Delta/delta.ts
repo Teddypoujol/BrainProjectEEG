@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import * as papa from 'papaparse';
 import { Http } from '@angular/http';
 import { Chart } from 'chart.js';
+import 'rxjs/add/operator/toPromise';
 
 
 @Component({
@@ -43,8 +44,12 @@ export class DeltaPage  {
   headerRow: any[] = [];
 
 
+
+
   constructor(public navCtrl: NavController, private http: Http) {
     this.readCsvData();
+    this.getTest();
+    this.getTest2();
   }
 
   public csvToJSON(csv,moyenneDelta,frequenceDelta, timeStamp, moyenneGamma,frequenceGamma, 
@@ -127,7 +132,24 @@ export class DeltaPage  {
     return result;
   }
 
- 
+
+public getTest(){
+ this.http.get('http://localhost:8000/mean', {})
+ .subscribe(data => {
+   console.log(data.json());
+
+ });
+}
+
+
+public getTest2(){
+  this.http.get('http://localhost:8000/mean2', {})
+  .subscribe(data => {
+    console.log(data.json());
+  });
+ }
+
+
    
   public readCsvData() {
     this.http.get('assets/test1.csv')
@@ -166,9 +188,9 @@ private handleError(err) {
   console.log('something went wrong: ', err);
 }
 
-trackByFn(index: any, item: any) {
+/*trackByFn(index: any, item: any) {
   return index;
-}
+}*/
 
 ionViewDidLoad() {
 
