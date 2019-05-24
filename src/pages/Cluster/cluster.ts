@@ -33,7 +33,7 @@ export class ClusterPage  {
   constructor(public navCtrl: NavController, private http: Http) {
     this.getGauche();
     this.getDroite();
-    this.readCsvData();
+    
   }
 
 
@@ -60,8 +60,15 @@ export class ClusterPage  {
   });
  }
 
+ public intersection(){
+  this.http.get('http://localhost:8000/intersection', {})
+  .subscribe(data => {
+    this.readCsvData();
+  });
+ }
+
  public readCsvData() {
-  this.http.get('assets/test1.csv')
+  this.http.get('data/intersection.csv')
     .subscribe(
       data => this.extractData(data),
       err => this.handleError(err)
