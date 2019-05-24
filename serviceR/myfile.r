@@ -35,8 +35,7 @@ clusterG <- function(){
   #AFFICHER CA !!!!
 
   afficherG <- cbind(pcaG, clusterG)
-  
-  colnames(pcaG) <- c("x","y")
+
   pcaG
 
 }

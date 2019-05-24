@@ -48,6 +48,8 @@ export class DeltaPage  {
   gauche = [];
   droite = [];
 
+  gaucheJSON = [];
+
 
   constructor(public navCtrl: NavController, private http: Http) {
     this.readCsvData();
@@ -122,16 +124,16 @@ export class DeltaPage  {
       //console.log(ndate);
       timeStamp[t] = (ndate.getSeconds());
     }
-    console.log(timeStamp);
-    console.log(frequenceDelta);
-    console.log(moyenneDelta);
+    //console.log(timeStamp);
+    //console.log(frequenceDelta);
+    //console.log(moyenneDelta);
     moyenneDelta = moyenneDelta.join();
     frequenceDelta = frequenceDelta.join();
 
     moyenneTheta = moyenneTheta.join();
     frequenceTheta = frequenceTheta.join();
 
-    console.log(result);
+    //console.log(result);
     return result;
   }
 
@@ -140,21 +142,27 @@ export class DeltaPage  {
  public getTest3(){
   this.http.get('http://localhost:8000/clusterG', {})
   .subscribe(data => {
-    //ddddd
-    console.log(data.json());
     this.gauche.push(data.json());
     console.log(this.gauche);
+    this.transformData(this.gauche);
   });
  }
 
  public getTest4(){
   this.http.get('http://localhost:8000/clusterD', {})
   .subscribe(data => {
-    //ddddd
-    console.log(data.json());
-    this.droite.push(data);
- 
+    this.droite.push(data.json());
+    //console.log(this.droite);
   });
+ }
+
+ public transformData(data){
+  for(let i=0;i< 223; i = i++){
+    //console.log(data[0][i]);
+    let point = {x: data[0][i][0], y: data[0][i][1]}
+    this.gaucheJSON.push(point);
+  }
+  console.log(this.gaucheJSON);
  }
 
 
