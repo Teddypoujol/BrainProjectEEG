@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { GammaPage } from '../pages/gamma/gamma';
-import { DeltaPage } from '../pages/Delta/delta';
 import { GlobalPage } from '../pages/Global/global';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ClusterPage } from '../pages/Cluster/cluster';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,11 +19,10 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
-    DeltaPage,
-    GammaPage,
     GlobalPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ClusterPage
   ],
   imports: [
     BrowserModule,
@@ -33,11 +32,10 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    DeltaPage,
-    GammaPage,
     GlobalPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ClusterPage
   ],
   providers: [
     StatusBar,

@@ -36,7 +36,7 @@ clusterG <- function(){
 
   afficherG <- cbind(pcaG, clusterG)
 
-  pcaG
+  afficherG
 
 }
 
@@ -64,7 +64,7 @@ clusterD <- function(){
   afficherD <- cbind(pcaD, clusterD)
   
   
-  pcaD
+  afficherD
  
 
 }
