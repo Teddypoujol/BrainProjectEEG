@@ -142,9 +142,11 @@ export class DeltaPage  {
  public getTest3(){
   this.http.get('http://localhost:8000/clusterG', {})
   .subscribe(data => {
-    this.gauche.push(data.json());
+    for(let i=0;i< 222; i++){
+      
+      this.gauche.push({x: data.json()[i][0], y: data.json()[i][1]});
+    }
     console.log(this.gauche);
-    this.transformData(this.gauche);
   });
  }
 
@@ -156,14 +158,14 @@ export class DeltaPage  {
   });
  }
 
- public transformData(data){
-  for(let i=0;i< 223; i = i++){
+/* public transformData(data){
+  for(let i=0;i< 3; i = i++){
     //console.log(data[0][i]);
-    let point = {x: data[0][i][0], y: data[0][i][1]}
-    this.gaucheJSON.push(point);
+
+    this.gaucheJSON.push({x: data[0][i][0], y: data[0][i][1]});
   }
-  console.log(this.gaucheJSON);
- }
+  //console.log(this.gaucheJSON);
+ }*/
 
 
 
