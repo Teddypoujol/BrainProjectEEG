@@ -28,16 +28,12 @@
   </ion-card-content>
 </ion-card>
 
-  <table class="data-table">
-    <tr>
-    </tr>
-    <tr *ngFor="let row of csvData; let i = index">
-      <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
-        <ion-input type="text" [(ngModel)]="csvData[i][j]"></ion-input>
-      </td>
-    </tr>
-  </table>
 
+  <ion-card>
+      <ion-card-header>
+        Table des Intersections
+      </ion-card-header>
+      <ion-card-content>
   <table>
     <tr>
       <th id="blank">&nbsp;</th>
@@ -64,5 +60,7 @@
       <td headers="co3 e1"><ion-input type="text" [(ngModel)]="inter9"></ion-input></td>
     </tr>
   </table>
+</ion-card-content>
+</ion-card>
 
 </ion-content>
