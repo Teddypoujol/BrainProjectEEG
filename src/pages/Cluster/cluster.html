@@ -28,10 +28,8 @@
   </ion-card-content>
 </ion-card>
 
-<ion-scroll scrollX="true" scrollY="true" class="data-scroll">
   <table class="data-table">
     <tr>
-      <td *ngFor="let header of headerRow" text-center><b>{{ header }}</b></td>
     </tr>
     <tr *ngFor="let row of csvData; let i = index">
       <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
@@ -39,6 +37,32 @@
       </td>
     </tr>
   </table>
-</ion-scroll>
+
+  <table>
+    <tr>
+      <th id="blank">&nbsp;</th>
+      <th id="co1" headers="blank" >Classe Verte Gauche</th>
+      <th id="co2" headers="blank">Classe Bleue Gauche</th>
+      <th id="co3" headers="blank">Classe Rouge Gauche</th>
+    </tr>
+    <tr>
+      <th id="c1" headers="blank">Classe Verte Droite</th>
+      <td headers="co1 c1"><ion-input type="text" [(ngModel)]="inter1"></ion-input></td>
+      <td headers="co2 c1"><ion-input type="text" [(ngModel)]="inter4"></ion-input></td>
+      <td headers="co3 c1"><ion-input type="text" [(ngModel)]="inter7"></ion-input></td>
+    </tr>
+    <tr>
+      <th id="p1"  headers="blank">Classe Bleue Droite</th>
+      <td headers="co1 p1"><ion-input type="text" [(ngModel)]="inter2"></ion-input></td>
+      <td headers="co2 p1"><ion-input type="text" [(ngModel)]="inter5"></ion-input></td>
+      <td headers="co3 p1"><ion-input type="text" [(ngModel)]="inter8"></ion-input></td>
+    </tr>
+    <tr>
+      <th id="e1"  headers="blank">Classe Rouge Droite</th>
+      <td headers="co1 e1"><ion-input type="text" [(ngModel)]="inter3"></ion-input></td>
+      <td headers="co2 e1"><ion-input type="text" [(ngModel)]="inter6"></ion-input></td>
+      <td headers="co3 e1"><ion-input type="text" [(ngModel)]="inter9"></ion-input></td>
+    </tr>
+  </table>
 
 </ion-content>

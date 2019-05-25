@@ -1,6 +1,5 @@
 import { Component, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import * as papa from 'papaparse';
 import { Http } from '@angular/http';
 import { Chart } from 'chart.js';
 import 'rxjs/add/operator/toPromise';
@@ -28,12 +27,23 @@ export class ClusterPage  {
   csvData: any[] = [];
   headerRow: any[] = [];
 
+  inter1: any;
+  inter2: any;
+  inter3: any;
+  inter4: any;
+  inter5: any;
+  inter6: any;
+  inter7: any;
+  inter8: any;
+  inter9: any;
+
 
 
   constructor(public navCtrl: NavController, private http: Http) {
     this.getGauche();
     this.getDroite();
-    
+   // this.readCsvData();
+    this.intersection();
   }
 
 
@@ -63,24 +73,19 @@ export class ClusterPage  {
  public intersection(){
   this.http.get('http://localhost:8000/intersection', {})
   .subscribe(data => {
-    this.readCsvData();
-  });
- }
+    this.inter1 = data.json()[0][0];
+    this.inter4 = data.json()[0][1];
+    this.inter7 = data.json()[0][2];
 
- public readCsvData() {
-  this.http.get('data/intersection.csv')
-    .subscribe(
-      data => this.extractData(data),
-      err => this.handleError(err)
-    );
-}
+    this.inter2 = data.json()[1][0];
+    this.inter5 = data.json()[1][1];
+    this.inter8 = data.json()[1][2];
 
-public extractData(res) {
-  let csvData = res['_body'] || '';
-  let parsedData = papa.parse(csvData).data;
-  this.headerRow = parsedData[0];
-  parsedData.splice(0, 1);
-  this.csvData = parsedData;
+    this.inter3 = data.json()[2][0];
+    this.inter6 = data.json()[2][1];
+    this.inter9 = data.json()[2][1];
+    console.log(this.inter1);
+ })
 }
 
 
