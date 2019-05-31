@@ -83,7 +83,7 @@ export class ClusterPage  {
 
     this.inter3 = data.json()[2][0];
     this.inter6 = data.json()[2][1];
-    this.inter9 = data.json()[2][1];
+    this.inter9 = data.json()[2][2];
     console.log(this.inter1);
  })
 }
